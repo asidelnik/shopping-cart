@@ -48,23 +48,8 @@
       <div class="shopping-cart">
          <p class="cart-title">Items in Cart</p>
          <div class="cart-list"></div>
-         <script id="store-total" type="text/x-handlebars-template">
-            <p>Total: $<span class="total">{{ total }}</span></p>
-         </script>
-         <button type="button" class="btn clear-cart">Clear Cart</button>
+         <button type="button" class="btn clear-cart btn-default">Clear Cart</button>
       </div>
-
-      <script id="cart-item-template" type="text/x-handlebars-template">
-         {{#each cart}}
-         <p>{{ name }} - $
-            <span>{{ price }}</span>
-         </p>
-         {{/each}}
-         {{ totalData }}
-      </script>
-
-      
-
 
       <div class="row">
          <div class="col-md-4">
@@ -167,10 +152,23 @@
          </div>
       </div>
    </div>
+
+   <script id="cart-item-template" type="text/x-handlebars-template">
+      {{#each cart}}
+         <p>{{ name }} - $
+            <span>{{ price }}</span>
+         </p>
+      {{/each}}
+      <hr>
+      <p>Total - $<span class="total">{{ total }}</span></p>
+   </script>
+
    <script type="text/javascript" src="jquery/dist/jquery.min.js"></script>
    <script type="text/javascript" src="bootstrap/dist/js/bootstrap.min.js"></script>
    <script type="text/javascript" src="handlebars/dist/handlebars.min.js"></script>
    <script type="text/javascript" src="script.js"></script>
+   
+   
 </body>
 
 </html>

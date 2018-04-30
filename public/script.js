@@ -3,7 +3,7 @@ var ShoppingCart = function () {
    // an array with all of our cart items
    var cartData = {
       cart: [],
-      totalData: {total: 0}
+      total: 0
    }
    var cartArr = cartData.cart;
 
@@ -14,13 +14,6 @@ var ShoppingCart = function () {
       var template = Handlebars.compile(source);
       var newHTML = template(cartData);
       $('.cart-list').append(newHTML);
-
-      /*$(".total").empty();
-
-      var source = $('#cart-item-template').html();
-      var template = Handlebars.compile(source);
-      var newHTML = template(cartData);
-      $('.cart-list').append(newHTML);*/
    }
 
 
@@ -35,15 +28,20 @@ var ShoppingCart = function () {
    }
    
    var calculateTotal = function() {
-      total = 0;
+      cartData.total = 0;
       for (let index = 0; index < cartArr.length; index++) {
-         total += cartArr[index].price;
+         cartData.total += cartArr[index].price;
       }
+      console.log(cartData.total);
+      
    }
 
    var clearCart = function () {
       cartData.cart = [];
+      cartData.total = 0;
       updateCart();
+      console.log(cartData.cart);
+      console.log(cartData.total);
    }
 
    return {
