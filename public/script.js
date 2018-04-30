@@ -1,29 +1,56 @@
 var ShoppingCart = function () {
 
-  // an array with all of our cart items
-  var cart = [];
+   // an array with all of our cart items
+   var cartData = {
+      cart: [],
+   }
+   var total = 0;
+   
 
-  var updateCart = function () {
-    // TODO: Write this function. In this function we render the page.
-    // Meaning we make sure that all our cart items are displayed in the browser.
-    // Remember to empty the "cart div" before you re-add all the item elements.
-  }
+   var updateCart = function () {
+      $(".cart-list").empty();
+
+      var source = $('#cart-item-template').html();
+      var template = Handlebars.compile(source);
+      var newHTML = template(cartData);
+      $('.cart-list').append(newHTML);
+
+      $(".total").empty();
+
+      var source = $('#cart-item-template').html();
+      var template = Handlebars.compile(source);
+      var newHTML = template(cartData);
+      $('.cart-list').append(newHTML);
+   }
 
 
-  var addItem = function (item) {
-    // TODO: Write this function. Remember this function has nothing to do with display. 
-    // It simply is for adding an item to the cart array, no HTML involved - honest ;-)
-  }
+   var addItem = function (itemName, itemPrice) {
+      var item = {
+         name: itemName,
+         price: itemPrice
+      }
+      cartData.cart.push(item);
+   }
+   
+   var calculateTotal = function() {
+      total = 0;
+      var cartArr = cartData.cart;
+      for (let index = 0; index < cartArr.length; index++) {
+         total += cartArr[index].price;
+      }
+   }
 
-  var clearCart = function () {
-    // TODO: Write a function that clears the cart ;-)
-  }
-  
-  return {
-    updateCart: updateCart,
-    addItem: addItem,
-    clearCart: clearCart
-  }
+   var clearCart = function () {
+      cartData.cart = [];
+      updateCart();
+   }
+
+   return {
+      updateCart: updateCart,
+      addItem: addItem,
+      calculateTotal: calculateTotal,
+      clearCart: clearCart
+   }
 };
 
 var app = ShoppingCart();
@@ -35,15 +62,18 @@ app.updateCart();
 //--------EVENTS---------
 
 $('.view-cart').on('click', function () {
-  // TODO: hide/show the shopping cart!
+   $('.shopping-cart').toggleClass('show');
 });
 
 $('.add-to-cart').on('click', function () {
-  // TODO: get the "item" object from the page
-  app.addItem(item);
-  app.updateCart();
+   var $itemName = $(this).closest('.item').data().name;
+   var $itemPrice = $(this).closest('.item').data().price;
+
+   app.addItem($itemName, $itemPrice);
+   app.calculateTotal();
+   app.updateCart();
 });
 
 $('.clear-cart').on('click', function () {
-  app.clearCart();
+   app.clearCart();
 });
