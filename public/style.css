@@ -95,6 +95,12 @@ body {
   text-align: center;
   font-weight: bold;
 }
+.cart-list p {
+   margin: 5px 0px;
+}
+.cart-list hr {
+   margin: 0px;
+}
 
 .show {
   display: block;
@@ -103,3 +109,4 @@ body {
 .clear-cart {
   width: 100%;
 }
+
